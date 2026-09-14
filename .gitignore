@@ -1,0 +1,51 @@
+# Environment
+.env
+*.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.python-version
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Spark
+streaming/checkpoints/
+*.crc
+_SUCCESS
+
+# Data / artifacts (keep the repo light — sample data only)
+data/offline_store/
+data/raw/
+*.parquet
+training/model.pkl
+!training/model.example.pkl
+
+# Runtime PIDs from `make demo`
+*.pid
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Docker
+docker-compose.override.yml
+
+structure.md
