@@ -1,0 +1,22 @@
+# Minimal Feast configuration for FraudLens.
+#
+# Feast is used here purely as a FEATURE REGISTRY — a versioned, discoverable
+# catalog of what features exist, their types, and where they live. The
+# actual dual-write mechanics (the hard part) are implemented directly in
+# streaming/sinks.py so that guarantee is easy to read and test without
+# depending on a framework's internals. This file just points Feast at the
+# same two stores the streaming pipeline writes to.
+
+project: fraudlens
+provider: local
+
+# --- Online store: must match streaming/sinks.py RedisOnlineSink config ---
+online_store:
+  type: redis
+  connection_string: "${REDIS_HOST:-localhost}:${REDIS_PORT:-6379}"
+
+# --- Offline store: must match streaming/sinks.py OfflineSink path ---
+offline_store:
+  type: file
+
+entity_key_serialization_version: 2
