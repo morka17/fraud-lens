@@ -31,32 +31,7 @@ the same micro-batch. Same code, same values, guaranteed.
 
 ## Architecture
 
-```
-                     ┌──────────────┐
-  simulate_transactions.py ──▶│    Kafka     │
-   (synthetic txn stream)     │ txn.events   │
-                     └──────┬───────┘
-                            ▼
-                 ┌────────────────────┐
-                 │  Spark Structured  │
-                 │  Streaming          │
-                 │  (windowed features)│
-                 └─────────┬──────────┘
-                    ┌───────┴────────┐
-                    ▼                ▼
-             ┌────────────┐   ┌──────────────┐
-             │   Redis     │   │ Parquet/     │
-             │  (online,   │   │ Snowflake    │
-             │  <10ms)     │   │ (offline)    │
-             └──────┬──────┘   └──────┬───────┘
-                    │                 │
-                    ▼                 ▼
-           ┌────────────────┐  ┌──────────────┐
-           │   FastAPI       │  │  train.py     │
-           │   /score        │  │  (XGBoost)    │
-           │  <50ms p99      │  └──────────────┘
-           └────────────────┘
-```
+![FraudLens architecture diagram](docs/architecture-diagram.png)
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the full data-flow write-up and
 how online/offline consistency is tested and enforced.
